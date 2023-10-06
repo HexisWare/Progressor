@@ -11,6 +11,11 @@ body {
     font-weight: bold;
 }
 
+#selected-contributions {
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
 #chart {
     display: grid;
     grid-template-columns: repeat(52, 15px);
