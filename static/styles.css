@@ -1,0 +1,23 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#selected-date {
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+#chart {
+    display: grid;
+    grid-template-columns: repeat(52, 15px);
+    gap: 2px;
+}
+
+.square {
+    width: 15px;
+    height: 15px;
+}

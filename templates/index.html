@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contribution Chart</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div id="selected-date">Selected Date: None</div>
+    <div id="chart"></div>
+
+    <script>
+        $(document).ready(function() {
+            $.getJSON("/get-contributions", function(data) {
+                data.forEach(function(contribution) {
+                    const count = contribution.count;
+                    const date = contribution.date;
+                    const square = document.createElement('div');
+                    square.className = 'square';
+                    square.title = `${date}: ${count} contributions`;
+                    square.style.background = getColor(count);
+
+                    // Add click event to the square
+                    square.addEventListener('click', function() {
+                        document.getElementById('selected-date').textContent = 'Selected Date: ' + date;
+                    });
+
+                    document.getElementById('chart').appendChild(square);
+                });
+            });
+        });
+
+        function getColor(count) {
+            if (count === 0) return '#ebedf0'; // Gray
+            if (count <= 2) return '#c6e48b'; // Green
+            if (count <= 5) return '#7bc96f'; // Darker green
+            if (count <= 8) return '#239a3b'; // Even darker green
+            return '#196127'; // Darkest green
+        }
+    </script>
+</body>
+</html>
