@@ -83,6 +83,7 @@
                     // Add click event to the square
                     square.addEventListener('click', function() {
                         document.getElementById('selected-date').textContent = 'Selected Date: ' + date;
+                        document.getElementById('selected-contributions').textContent = 'Selected Controbutions: ' + count;
                     });
 
                     document.getElementById('month-chart').appendChild(square);
