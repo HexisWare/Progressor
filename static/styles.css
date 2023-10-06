@@ -21,3 +21,13 @@ body {
     width: 15px;
     height: 15px;
 }
+
+#month-chart {
+    margin-top: 20px;
+    margin-bottom: 40px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(7, 15px);
+    gap: 2px;
+}

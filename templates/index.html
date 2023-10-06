@@ -9,6 +9,25 @@
 </head>
 <body>
     <div id="selected-date">Selected Date: None</div>
+    <div>
+        <select id="month-selector">
+            <option value="01">January</option>
+            <option value="02">February</option>
+            <option value="03">March</option>
+            <option value="04">April</option>
+            <option value="05">May</option>
+            <option value="06">June</option>
+            <option value="07">July</option>
+            <option value="08">August</option>
+            <option value="09">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
+        </select>
+        <button onclick="loadMonth()">Load Month</button>
+    </div>
+
+    <div id="month-chart"></div>
     <div id="chart"></div>
 
     <script>
@@ -38,6 +57,35 @@
             if (count <= 5) return '#7bc96f'; // Darker green
             if (count <= 8) return '#239a3b'; // Even darker green
             return '#196127'; // Darkest green
+        }
+
+        function loadMonth() {
+            const selectedMonth = document.getElementById('month-selector').value;
+            $.getJSON("/get-contributions", function(data) {
+                // Clear previous month data
+                document.getElementById('month-chart').innerHTML = '';
+
+                // Filter contributions for the selected month
+                const monthContributions = data.filter(item => {
+                    return item.date.startsWith(new Date().getFullYear() + '-' + selectedMonth);
+                });
+
+                monthContributions.forEach(function(contribution) {
+                    const count = contribution.count;
+                    const date = contribution.date;
+                    const square = document.createElement('div');
+                    square.className = 'square';
+                    square.title = `${date}: ${count} contributions`;
+                    square.style.background = getColor(count);
+
+                    // Add click event to the square
+                    square.addEventListener('click', function() {
+                        document.getElementById('selected-date').textContent = 'Selected Date: ' + date;
+                    });
+
+                    document.getElementById('month-chart').appendChild(square);
+                });
+            });
         }
     </script>
 </body>
